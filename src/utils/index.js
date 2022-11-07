@@ -34,10 +34,20 @@ const editPerson = async (id, { name, age, talk }) => {
   return personEdit;
 };
 
+const deletePerson = async (id) => {
+  const infos = await talkerReader();
+  const filteredPersons = infos.filter((p) => p.id !== +id);
+  const personDeleted = { ...filteredPersons };
+  const othersPersons = infos.map((i) => i.id !== +id);
+  await fs.writeFile(dirPath, JSON.stringify(othersPersons, null, 2));
+  return personDeleted;
+};
+
 module.exports = {
   talkerReader,
   idReader,
   createToken,
   addPerson,
   editPerson,
+  deletePerson,
 };

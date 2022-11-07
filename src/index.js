@@ -1,6 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { talkerReader, idReader, createToken, addPerson, editPerson } = require('./utils/index');
+
+const { talkerReader,
+  idReader,
+  createToken,
+  addPerson,
+  editPerson,
+  deletePerson } = require('./utils/index');
+
 const { emailValidation,
   passwordValidation,
   tokenValidation,
@@ -61,6 +68,12 @@ async (req, res) => {
   const { params: { id }, body } = req;
   const personEdit = await editPerson(id, body);
   return res.status(HTTP_OK_STATUS).json(personEdit);
+});
+
+app.delete('/talker/:id', tokenValidation, async (req, res) => {
+  const { params: { id }, body } = req;
+  const personDeleted = await deletePerson(id, body);
+  return res.status(204).json(personDeleted);
 });
 
 app.listen(PORT, () => {
