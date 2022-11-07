@@ -43,6 +43,12 @@ const deletePerson = async (id) => {
   return personDeleted;
 };
 
+const searchPerson = async (item) => {
+  const infos = await talkerReader();
+  const result = infos.filter((p) => p.name.toLowerCase().includes(item.toLowerCase()));
+  return result;
+};
+
 module.exports = {
   talkerReader,
   idReader,
@@ -50,4 +56,5 @@ module.exports = {
   addPerson,
   editPerson,
   deletePerson,
+  searchPerson,
 };

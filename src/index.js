@@ -6,7 +6,8 @@ const { talkerReader,
   createToken,
   addPerson,
   editPerson,
-  deletePerson } = require('./utils/index');
+  deletePerson,
+  searchPerson } = require('./utils/index');
 
 const { emailValidation,
   passwordValidation,
@@ -26,6 +27,12 @@ const PORT = '3000';
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
+});
+
+app.get('/talker/search', tokenValidation, async (req, res) => {
+  const { q } = req.query;
+  const searchedPerson = await searchPerson(q);
+  return res.status(HTTP_OK_STATUS).json(searchedPerson);
 });
 
 app.get('/talker', async (_req, res) => {
