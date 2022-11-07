@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { talkerReader, idReader } = require('./utils/index');
+const { talkerReader, idReader, createToken } = require('./utils/index');
+const { emailValidation, passwordValidation } = require('./utils/validation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +24,12 @@ app.get('/talker/:id', async (req, res) => {
   const talkerId = await idReader(+personId);
   if (!talkerId) return res.status(404).send({ message: 'Pessoa palestrante não encontrada' });
   return res.status(HTTP_OK_STATUS).send(talkerId);
+});
+
+app.post('/login', emailValidation, passwordValidation, async (_req, res) => {
+  const loginToken = createToken();
+  // console.log(typeof loginToken);
+  return res.status(HTTP_OK_STATUS).json({ token: loginToken });
 });
 
 app.listen(PORT, () => {
