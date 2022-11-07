@@ -24,9 +24,20 @@ const addPerson = async (person) => {
   return newPerson;
 };
 
+const editPerson = async (id, { name, age, talk }) => {
+  const infos = await talkerReader();
+  const person = infos.find((p) => p.id === +id);
+  const personEdit = { ...person, name, age, talk };
+  const newEditPerson = infos.map((i) => i.id !== +id);
+  newEditPerson.push(personEdit);
+  await fs.writeFile(dirPath, JSON.stringify(newEditPerson, null, 2));
+  return personEdit;
+};
+
 module.exports = {
   talkerReader,
   idReader,
   createToken,
   addPerson,
+  editPerson,
 };
