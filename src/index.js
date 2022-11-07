@@ -1,7 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { talkerReader, idReader, createToken } = require('./utils/index');
-const { emailValidation, passwordValidation } = require('./utils/validation');
+const { talkerReader, idReader, createToken, addPerson } = require('./utils/index');
+const { emailValidation,
+  passwordValidation,
+  tokenValidation,
+  nameValidation, 
+  ageValidation,
+  talkValidation,
+  watchedAtValidation,
+  rateValidation} = require('./utils/validation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,8 +35,19 @@ app.get('/talker/:id', async (req, res) => {
 
 app.post('/login', emailValidation, passwordValidation, async (_req, res) => {
   const loginToken = createToken();
-  // console.log(typeof loginToken);
   return res.status(HTTP_OK_STATUS).json({ token: loginToken });
+});
+
+app.post('/talker',
+tokenValidation,
+nameValidation,
+ageValidation,
+talkValidation,
+watchedAtValidation,
+rateValidation,
+async (req, res) => {
+  const person = await addPerson(req.body);
+  return res.status(201).json(person);
 });
 
 app.listen(PORT, () => {
