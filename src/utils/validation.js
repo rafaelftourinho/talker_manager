@@ -41,7 +41,7 @@ const passwordValidation = (req, res, next) => {
 
 const tokenValidation = (req, res, next) => {
   const { authorization } = req.headers;
-  console.log(authorization);
+  // console.log(authorization);
   if (!authorization) return res.status(401).send({ message: tokenMessage });
   if (authorization.length < TOKEN_LENGTH) return res.status(401).send({ message: tokenLength });
   next();
