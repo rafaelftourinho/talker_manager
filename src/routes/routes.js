@@ -8,14 +8,16 @@ const { talkerReader,
   deletePerson,
   searchPerson } = require('../utils/index');
 
-const { emailValidation,
-  passwordValidation,
-  tokenValidation,
+const {
   nameValidation, 
   ageValidation,
   talkValidation,
   watchedAtValidation,
-  rateValidation } = require('../utils/validation');
+  rateValidation,
+} = require('../middlewares/validation');
+
+const { emailValidation, passwordValidation } = require('../middlewares/personInfo');
+const tokenValidation = require('../middlewares/token');
 
 const routes = express.Router();
 const HTTP_OK_STATUS = 200;

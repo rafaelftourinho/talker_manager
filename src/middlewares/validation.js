@@ -1,9 +1,4 @@
-const { emailMessage,
-  regexEmailMessage,
-  passwordMesage,
-  passwordLength,
-  tokenMessage,
-  tokenLength,
+const { 
   nameMessage,
   nameLength,
   ageMessage,
@@ -12,11 +7,9 @@ const { emailMessage,
   watchedAtMessage,
   watchedAtFormat,
   rateMessage,
-  rateRange } = require('./messages'); 
+  rateRange,
+} = require('../utils/messages');
 
-const regexEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/;
-const MIN_CHAR = 6;
-const TOKEN_LENGTH = 16;
 const NAME_CHAR = 3;
 const AGE_CHAR = 18;
 
@@ -25,31 +18,9 @@ const dateFormat = (date) => {
   return dataValidation.test(date);
 };
 
-const emailValidation = (req, res, next) => {
-  const personEmail = req.body.email;
-  if (!personEmail) return res.status(400).send({ message: emailMessage });
-  if (!regexEmail.test(personEmail)) return res.status(400).send({ message: regexEmailMessage });
-  next();
-};
-
-const passwordValidation = (req, res, next) => {
-  const personPassword = req.body.password;
-  if (!personPassword) return res.status(400).send({ message: passwordMesage });
-  if (personPassword.length < MIN_CHAR) return res.status(400).send({ message: passwordLength });
-  next();
-};
-
-const tokenValidation = (req, res, next) => {
-  const { authorization } = req.headers;
-  // console.log(authorization);
-  if (!authorization) return res.status(401).send({ message: tokenMessage });
-  if (authorization.length < TOKEN_LENGTH) return res.status(401).send({ message: tokenLength });
-  next();
-};
-
 const nameValidation = (req, res, next) => {
   const personName = req.body.name;
-  if (!personName) return res.status(400).send({ message: nameMessage });
+  if (!personName) return res.status(400).json({ message: nameMessage });
   if (personName.length < NAME_CHAR) return res.status(400).json({ message: nameLength });
   next();
 };
@@ -84,9 +55,6 @@ const rateValidation = (req, res, next) => {
 };
 
 module.exports = {
-  emailValidation,
-  passwordValidation,
-  tokenValidation,
   nameValidation,
   ageValidation,
   talkValidation,
