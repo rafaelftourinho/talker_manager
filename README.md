@@ -48,7 +48,7 @@ Uma uma API de um CRUD (Create, Read, Update e Delete) de palestrantes. Você va
 
 ```bash
 # Clone o repositório
-  git clone git@github.com:marlondlacerda/talker-manager.git
+  git clone git@github.com:rafaelftourinho/talker_manager.git
 # Entre na pasta do repositório que você acabou de clonar:
   cd mysql-one-for-all
 # Instale as dependências e inicialize o projeto
