@@ -50,7 +50,7 @@ Uma uma API de um CRUD (Create, Read, Update e Delete) de palestrantes. Você va
 # Clone o repositório
   git clone git@github.com:rafaelftourinho/talker_manager.git
 # Entre na pasta do repositório que você acabou de clonar:
-  cd mysql-one-for-all
+  cd talker_manager
 # Instale as dependências e inicialize o projeto
   npm install
 # Entre no Vs Code para verificar os arquivos usando o atalho no terminal:
